@@ -1,0 +1,39 @@
+﻿<Window x:Class="TimeManagementReportingSystem.EventForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TimeManagementReportingSystem"
+        mc:Ignorable="d"
+        Title="EventForm" Height="440" Width="467">
+    <Grid Background="Aqua" Height="440">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="563*"/>
+            <RowDefinition Height="19*"/>
+        </Grid.RowDefinitions>
+        <Button Content="Back" HorizontalAlignment="Center" Margin="0,321,0,0" VerticalAlignment="Top" Height="56" Width="181" Click="Button_Click"/>
+        <Label Content="Add Event" HorizontalAlignment="Left" Margin="41,126,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Button HorizontalAlignment="Left" Margin="71,168,0,0" VerticalAlignment="Top" Height="40" Width="40" RenderTransformOrigin="0.5,0.5" Background="Red" Click="Add_Button_Click">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="45"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Label Content="View Event" HorizontalAlignment="Left" Margin="311,130,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Button HorizontalAlignment="Left" Margin="341,172,0,0" VerticalAlignment="Top" Height="40" Width="40" RenderTransformOrigin="0.5,0.5" Background="Blue" Click="View_Button_Click">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="45"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+
+    </Grid>
+</Window>

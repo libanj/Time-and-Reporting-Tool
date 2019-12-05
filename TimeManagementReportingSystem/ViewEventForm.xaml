@@ -1,0 +1,21 @@
+﻿<Window x:Class="TimeManagementReportingSystem.ViewEventForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TimeManagementReportingSystem"
+        mc:Ignorable="d"
+        Title="ViewEventForm" Height="450" Width="800">
+    <Grid Background="Aqua" Height="440">
+        <Label Content="Start Date" HorizontalAlignment="Left" Margin="83,57,0,0" VerticalAlignment="Top"/>
+        <DatePicker Name="StartDatePicker" HorizontalAlignment="Left" Margin="176,57,0,0" VerticalAlignment="Top"/>
+        <Label Content="End Date" HorizontalAlignment="Left" Margin="400,57,0,0" VerticalAlignment="Top"/>
+        <DatePicker Name="EndDatePicker" HorizontalAlignment="Left" Margin="485,59,0,0" VerticalAlignment="Top"/>
+        <ListBox Name="ViewDateListBox" Margin="66,132,66,104">
+        
+        </ListBox>
+        <Button Content="Back" HorizontalAlignment="Left" Margin="176,363,0,0" VerticalAlignment="Top" Width="144" Height="39" Click="Back_Button_Click"/>
+        <Button Content="Show" HorizontalAlignment="Left" Margin="443,363,0,0" VerticalAlignment="Top" Width="144" Height="40" Click="Show_Button_Click"/>
+
+    </Grid>
+</Window>
