@@ -14,7 +14,7 @@
         <ListBox Name="ViewDateListBox" Margin="66,132,66,104">
         
         </ListBox>
-        <Button Content="Back" HorizontalAlignment="Left" Margin="176,363,0,0" VerticalAlignment="Top" Width="144" Height="39" Click="Back_Button_Click"/>
+        <Button Content="Back" HorizontalAlignment="Left" Margin="176,363,0,0" VerticalAlignment="Top" Width="144" Height="40" Click="Back_Button_Click"/>
         <Button Content="Show" HorizontalAlignment="Left" Margin="443,363,0,0" VerticalAlignment="Top" Width="144" Height="40" Click="Show_Button_Click"/>
 
     </Grid>

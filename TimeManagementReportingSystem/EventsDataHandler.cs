@@ -12,8 +12,6 @@ namespace TimeManagementReportingSystem
         // This list is static because we want to make sure that every instance will still have the same list of events
         public readonly List<Event> events; // can access list however cannot change the list('readonly')
 
-        public const string fileName = "\\events.xml";
-
         private EventsDataHandler()
         {
             events = new List<Event>(); // create new "read-only" List

@@ -6,7 +6,7 @@ namespace TimeManagementReportingSystem
 {
     public interface IDataManager
     {
-        void Read(string fileName);
-        void Write(Event eventToAdd, string fileName);
+        void Read();
+        void Write(Event eventToAdd);
     }
 }

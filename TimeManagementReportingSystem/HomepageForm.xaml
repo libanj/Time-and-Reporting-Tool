@@ -9,6 +9,6 @@
     <Grid Background="Aqua">
         <Label Content="Time and Reporting Tool" HorizontalAlignment="Center" Margin="0,49,0,0" VerticalAlignment="Top" Height="46" Width="296" FontSize="25"/>
         <Button Content="EventForm" HorizontalAlignment="Center" Margin="0,153,0,0" VerticalAlignment="Top" Height="64" Width="162" FontSize="25" Click="EventForm_Button_Click"/>
-        <Button Content="PredictionForm" HorizontalAlignment="Center" Margin="0,263,0,0" VerticalAlignment="Top" Height="64" Width="190" FontSize="25"/>
+        <Button Content="PredictionForm" HorizontalAlignment="Center" Margin="0,263,0,0" VerticalAlignment="Top" Height="64" Width="190" FontSize="25" Click="PredictionForm_Button_Click"/>
     </Grid>
 </Window>

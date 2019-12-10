@@ -20,7 +20,7 @@ namespace TimeManagementReportingSystem
             EventsDataHandler.GetInstance().events.Add(eventToAdd);
 
             // Then we write to file
-            manager.Write(eventToAdd, EventsDataHandler.fileName);
+            manager.Write(eventToAdd);
         }
     }
 }

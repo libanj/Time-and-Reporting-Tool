@@ -9,11 +9,14 @@ namespace TimeManagementReportingSystem
 {
     public class XMLManager : IDataManager
     {
-        public void Read(string fileName)
+        private const string fileName = "\\events.xml";
+
+        public void Read()
         {
             string currentDirectory = Directory.GetCurrentDirectory();
 
             string filepath = currentDirectory + fileName;
+
             XmlDocument doc = new XmlDocument();
             doc.Load(filepath);
 
@@ -59,105 +62,19 @@ namespace TimeManagementReportingSystem
             }
         }
 
-        public void Write(Event eventToAdd, string fileName)
+        public void Write(Event eventToAdd)
         {
             // Get current working directory
             string currentDirectory = Directory.GetCurrentDirectory();
 
-            try
+            if (File.Exists(currentDirectory + fileName))
             {
-                if (File.Exists(currentDirectory + fileName))
-                {
-                    Trace.WriteLine("File exists...");
-                    //Trace.WriteLine(currentDirectory);
-                    //Trace.WriteLine(currentDirectory + fileName);
-                    AppendData(fileName, eventToAdd);
-                }
-                else
-                {
-                    Trace.WriteLine("File doesn't exist...");
-                    //Trace.WriteLine(currentDirectory);
-                    //Trace.WriteLine(currentDirectory + fileName);
-                    SaveInitialData(eventToAdd, fileName);
-                }
+                AppendData(fileName, eventToAdd);
             }
-            catch (Exception)
+            else
             {
-                Trace.WriteLine("Error when saving...");
-                throw;
+                SaveInitialData(eventToAdd);
             }
-        }
-
-        private void SaveInitialData(Event eventToAdd, string filename)
-        {
-            // Get current working directory
-            string currentDirectory = Directory.GetCurrentDirectory();
-
-            // Create a new file in the working directory
-            XmlTextWriter textWriter = new XmlTextWriter(currentDirectory + filename, Encoding.UTF8);
-
-            // format the xml file
-            textWriter.Formatting = Formatting.Indented;
-
-            // Opens the document 
-            textWriter.WriteStartDocument();
-
-            // Write the root element for all events
-            textWriter.WriteStartElement("Events");
-
-            // Write current event root element 
-            textWriter.WriteStartElement("Event");
-
-            // Name
-            textWriter.WriteStartElement("Name");
-            textWriter.WriteString(eventToAdd.Name);
-            textWriter.WriteEndElement();
-
-            // Contact
-            textWriter.WriteStartElement("Contact");
-            textWriter.WriteString(eventToAdd.Contact);
-            textWriter.WriteEndElement();
-
-            // DateTime
-            textWriter.WriteStartElement("Date");
-            textWriter.WriteString(eventToAdd.Date);
-            textWriter.WriteEndElement();
-
-            textWriter.WriteStartElement("Location");
-            textWriter.WriteString(eventToAdd.Location);
-            textWriter.WriteEndElement();
-
-            textWriter.WriteStartElement("Duration");
-            textWriter.WriteString(eventToAdd.TimeUsage.ToString());
-            textWriter.WriteEndElement();
-
-            textWriter.WriteStartElement("EventType");
-            textWriter.WriteString(Convert.ToInt32(eventToAdd.EventType).ToString());
-            textWriter.WriteEndElement();
-
-            //check if appointment or task
-            Type typeOfEvent = eventToAdd.GetType();
-
-            if (typeOfEvent == typeof(Task))
-            {
-                textWriter.WriteStartElement("IsComplete");
-                textWriter.WriteString(Convert.ToInt32(((Task)eventToAdd).IsComplete).ToString());
-                textWriter.WriteEndElement();
-            }
-            else if (typeOfEvent == typeof(Appointment))
-            {
-                textWriter.WriteStartElement("Recipient");
-                textWriter.WriteString((((Appointment)eventToAdd).Recipient.ToString()));
-                textWriter.WriteEndElement();
-            }
-
-            textWriter.WriteEndElement(); // event
-            textWriter.WriteEndElement(); //events
-
-            // Ends the document. 
-            textWriter.WriteEndDocument();
-
-            textWriter.Close();
         }
 
         private void AppendData(string filename, Event eventToAdd)
@@ -219,6 +136,94 @@ namespace TimeManagementReportingSystem
 
             xmlDoc.DocumentElement.AppendChild(subRootNote);
             xmlDoc.Save(currentDirectory + filename);
+        }
+
+        private void SaveInitialData(Event eventToAdd)
+        {
+            XmlTextWriter textWriter = null;
+
+            try
+            {
+                CreatXMLContent(eventToAdd, textWriter);
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine(e.Message);
+            }
+            finally
+            {
+                textWriter.Close();
+            }
+        }
+
+        private void CreatXMLContent(Event eventToAdd, XmlTextWriter textWriter)
+        {
+            // Get current working directory
+            string currentDirectory = Directory.GetCurrentDirectory();
+
+            // Create a new file in the working directory
+            textWriter = new XmlTextWriter(currentDirectory + fileName, Encoding.UTF8);
+
+            // format the xml file
+            textWriter.Formatting = Formatting.Indented;
+
+            // Opens the document 
+            textWriter.WriteStartDocument();
+
+            // Write the root element for all events
+            textWriter.WriteStartElement("Events");
+
+            // Write current event root element 
+            textWriter.WriteStartElement("Event");
+
+            // Name
+            textWriter.WriteStartElement("Name");
+            textWriter.WriteString(eventToAdd.Name);
+            textWriter.WriteEndElement();
+
+            // Contact
+            textWriter.WriteStartElement("Contact");
+            textWriter.WriteString(eventToAdd.Contact);
+            textWriter.WriteEndElement();
+
+            // DateTime
+            textWriter.WriteStartElement("Date");
+            textWriter.WriteString(eventToAdd.Date);
+            textWriter.WriteEndElement();
+
+            textWriter.WriteStartElement("Location");
+            textWriter.WriteString(eventToAdd.Location);
+            textWriter.WriteEndElement();
+
+            textWriter.WriteStartElement("Duration");
+            textWriter.WriteString(eventToAdd.TimeUsage.ToString());
+            textWriter.WriteEndElement();
+
+            textWriter.WriteStartElement("EventType");
+            textWriter.WriteString(Convert.ToInt32(eventToAdd.EventType).ToString());
+            textWriter.WriteEndElement();
+
+            //check if appointment or task
+            Type typeOfEvent = eventToAdd.GetType();
+
+            if (typeOfEvent == typeof(Task))
+            {
+                textWriter.WriteStartElement("IsComplete");
+                textWriter.WriteString(Convert.ToInt32(((Task)eventToAdd).IsComplete).ToString());
+                textWriter.WriteEndElement();
+            }
+            else if (typeOfEvent == typeof(Appointment))
+            {
+                textWriter.WriteStartElement("Recipient");
+                textWriter.WriteString((((Appointment)eventToAdd).Recipient.ToString()));
+                textWriter.WriteEndElement();
+            }
+
+            textWriter.WriteEndElement(); // event
+            textWriter.WriteEndElement(); //events
+
+            // Ends the document. 
+            textWriter.WriteEndDocument();
         }
     }
 }

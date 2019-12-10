@@ -28,5 +28,15 @@ namespace TimeManagementReportingSystem
             eventForm.ShowDialog();
             eventForm.Focus();
         }
+
+        private void PredictionForm_Button_Click(object sender, RoutedEventArgs e)
+        {
+            // call prediction xaml page
+            PredictionForm predictionForm = new PredictionForm();
+            predictionForm.ShowDialog();
+            predictionForm.Focus();
+            // create prediction model class where i read the xml data
+            // capture duration tag and eventType tag.
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace TimeManagementReportingSystem
         {
             this.datamanager = datamanager;
             EventsDataHandler.GetInstance().events.Clear();
-            datamanager.Read(EventsDataHandler.fileName);
+            datamanager.Read();
             InitializeComponent();
         }
 

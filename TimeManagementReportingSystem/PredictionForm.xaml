@@ -1,0 +1,15 @@
+﻿<Window x:Class="TimeManagementReportingSystem.PredictionForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TimeManagementReportingSystem"
+        mc:Ignorable="d"
+        Title="PredictionForm" Height="450" Width="800">
+    <Grid Background="Aqua">
+        <Label Content="Prediction for the next 4 weeks" HorizontalAlignment="Center" Margin="0,36,0,0" VerticalAlignment="Top"/>
+        <Button Content="Back" HorizontalAlignment="Left" Margin="194,192,0,0" VerticalAlignment="Top" Height="40" Width="144" Click="Back_Button_Click"/>
+        <Label Name="PredictionLabel" Content="Label" HorizontalAlignment="Left" Margin="428,199,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
