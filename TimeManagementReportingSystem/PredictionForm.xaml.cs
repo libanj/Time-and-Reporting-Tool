@@ -18,7 +18,7 @@ namespace TimeManagementReportingSystem
     /// </summary>
     public partial class PredictionForm : Window
     {
-        
+
         public PredictionForm()
         {
             InitializeComponent();
@@ -26,9 +26,8 @@ namespace TimeManagementReportingSystem
             Trace.WriteLine($"Prediction {GetPredictionFourWeeks()}");
             Trace.WriteLine($"AllEventsDuration {GetAllEventsDurationTime()}");
             PredictionLabel.Content = PrintPrediction();
-
-
         }
+
         private int GetAllEventsDurationTime()
         {
             int totalDuration = 0;
@@ -37,7 +36,8 @@ namespace TimeManagementReportingSystem
                 if (_event.EventType == EventType.RECURRING)
                 {
                     totalDuration += Convert.ToInt32(_event.TimeUsage) * 4;
-                } else
+                }
+                else
                 {
                     totalDuration += Convert.ToInt32(_event.TimeUsage);
                 }

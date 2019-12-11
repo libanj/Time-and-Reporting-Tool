@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Diagnostics;
+using System.Threading;
 
 namespace TimeManagementReportingSystem
 {
@@ -16,22 +17,37 @@ namespace TimeManagementReportingSystem
             RecipientTextBox.IsEnabled = false;
         }
 
-
-        private void CreateTextBox()
-        {
-            
-        }
-
         private void SubmitFormButton_Click(object sender, RoutedEventArgs e)
         {
             if (IsDataValid())
             {
-                PrintAllEvents();
-                AddEvent_Model addEvent_Model = new AddEvent_Model(new XMLManager());
-                addEvent_Model.AddEvent(GetData());
+                // Get the main thread to create the event to add for us as it references components
+                Event eventToAdd = GetData();
+
+                // Then pass in the event to the sub thread with the data we want to add
+                SaveEventUsingThread(eventToAdd);
 
                 MessageBox.Show("Saved event successfully.");
+
+                PrintAllEvents();
+
                 ClearForm();
+            }
+        }
+
+        private void SaveEventUsingThread(Event eventToAdd)
+        {
+            try
+            {
+                AddEvent_Model addEvent_Model = new AddEvent_Model(new XMLManager());
+
+                // Create a thread and get the thread to execute a function 
+                Thread thread = new Thread(() => addEvent_Model.AddEvent(eventToAdd));
+                thread.Start();
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine(e.Message);
             }
         }
 
