@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows.Controls;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace TimeManagementReportingSystem
 {
@@ -24,6 +25,7 @@ namespace TimeManagementReportingSystem
             InitializeComponent();
             CreateColumns();
             CreateInitialEntries();
+            ((DatePicker)entryPanel.Children[2]).SelectedDate = DateTime.Now;
         }
 
         private void CreateColumns()
@@ -88,12 +90,52 @@ namespace TimeManagementReportingSystem
 
         private void SubmitFormButton_Click(object sender, RoutedEventArgs e)
         {
-            SaveEntriesFromDynamicComponents();
+            if (IsDataValid())
+            {
+                SaveEntriesFromDynamicComponents();
+                ClearForm();
+            }
+            else
+            {
+                MessageBox.Show("Invalid entry");
+            }
         }
+
+
 
         private bool IsDataValid()
         {
-            return false;
+            for (int i = 0; i < entryPanel.Children.Count; i++)
+            {
+                if (entryPanel.Children[i].GetType() == typeof(TextBox))
+                {
+                    TextBox textBox = (TextBox)entryPanel.Children[i];
+                    Trace.WriteLine(textBox.Text);
+
+                    // if duration textbox
+                    if (i == 5)
+                    {
+                        if (!IsDurationValid(textBox.Text))
+                            return false;
+                    }
+                    // else other textboxes
+                    else
+                    {
+                        if (!IsTextBoxValid(textBox.Text))
+                            return false;
+                    }
+                }
+                else if (entryPanel.Children[i].GetType() == typeof(DatePicker))
+                {
+                    DatePicker datePicker = (DatePicker)entryPanel.Children[i];
+                    string date = datePicker.SelectedDate.Value.ToShortDateString();
+
+                    if (!IsDateValid(date))
+                        return false;
+                }
+            }
+
+            return true;
         }
 
         private void SaveEntriesFromDynamicComponents()
@@ -138,7 +180,6 @@ namespace TimeManagementReportingSystem
                             break;
                     }
                 }
-
                 else if (entryPanel.Children[i].GetType() == typeof(DatePicker))
                 {
                     DatePicker datePicker = (DatePicker)entryPanel.Children[i];
@@ -187,6 +228,18 @@ namespace TimeManagementReportingSystem
             MessageBox.Show("Saved Events!");
         }
 
+        private void ClearForm()
+        {
+            for (int i = 0; i < entryPanel.Children.Count; i++)
+            {
+                if (entryPanel.Children[i].GetType() == typeof(TextBox))
+                {
+                    TextBox textBox = (TextBox)entryPanel.Children[i];
+                    textBox.Text = "";
+                }
+            }
+        }
+
         private void SaveEventUsingThread(Event eventToAdd)
         {
             try
@@ -205,6 +258,34 @@ namespace TimeManagementReportingSystem
 
         private bool IsTextBoxValid(string textboxValue) => textboxValue != "";
 
+        private bool IsDurationValid(string duration)
+        {
+            Regex regex = new Regex("^[0-9]+$");
+
+            if (duration == "")
+            {
+                return false;
+            }
+            else if (regex.IsMatch(duration))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool IsDateValid(string date)
+        {
+            if (date == "")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         private void CancelFormButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
