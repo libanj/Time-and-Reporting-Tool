@@ -44,9 +44,7 @@ namespace TimeManagementReportingSystem
             }
             return totalDuration;
         }
-
-        private int GetPredictionFourWeeks() => GetAllEventsDurationTime() / EventsDataHandler.GetInstance().events.Count;
-
+        private int GetPredictionFourWeeks() => EventsDataHandler.GetInstance().events.Count > 0 ? GetAllEventsDurationTime() / EventsDataHandler.GetInstance().events.Count : 0;
         private string PrintPrediction() => $"Time {Math.DivRem(GetPredictionFourWeeks(), 60, out int minutes)}hh:{minutes}mm";
         private void Back_Button_Click(object sender, RoutedEventArgs e)
         {

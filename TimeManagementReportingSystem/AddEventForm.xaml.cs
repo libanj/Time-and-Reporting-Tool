@@ -16,6 +16,12 @@ namespace TimeManagementReportingSystem
             RecipientTextBox.IsEnabled = false;
         }
 
+
+        private void CreateTextBox()
+        {
+            
+        }
+
         private void SubmitFormButton_Click(object sender, RoutedEventArgs e)
         {
             if (IsDataValid())
