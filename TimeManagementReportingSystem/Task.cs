@@ -8,7 +8,7 @@ namespace TimeManagementReportingSystem
         private bool isComplete;
         public bool IsComplete => isComplete;
 
-        public Task(string name, string contact, string date, string location, int timeUsage, bool isComplete = false) : base(name, contact, date, location, timeUsage)
+        public Task(string name, string contact, string date, string time, string location, int timeUsage, bool isComplete = false) : base(name, contact, date, time, location, timeUsage)
         {
             this.isComplete = isComplete;
         }

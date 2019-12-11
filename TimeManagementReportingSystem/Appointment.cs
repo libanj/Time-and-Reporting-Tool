@@ -9,7 +9,7 @@ namespace TimeManagementReportingSystem
 
         public string Recipient => recipient;
 
-        public Appointment(string name, string contact, string date, string location, int timeUsage, string recipient) : base(name, contact, date, location, timeUsage)
+        public Appointment(string name, string contact, string date, string time, string location, int timeUsage, string recipient) : base(name, contact, date, time, location, timeUsage)
         {
             this.recipient = recipient;
         }

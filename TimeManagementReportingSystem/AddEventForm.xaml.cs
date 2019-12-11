@@ -13,8 +13,8 @@ namespace TimeManagementReportingSystem
     /// </summary>
     public partial class AddEventForm : Window
     {
-        private int numberOfColumns = 8;
-        private const int textBoxWidth = 115;
+        private int numberOfColumns = 9;
+        private const int textBoxWidth = 100;
         private const int textBoxHeight = 40;
         private const int numberOfEntries = 1;
 
@@ -33,7 +33,7 @@ namespace TimeManagementReportingSystem
             StackPanel columnPanel = new StackPanel();
             columnPanel.Orientation = Orientation.Horizontal;
 
-            string[] columns = { "Name", "Email", "Date", "Location", "Recipient", "Duration", "Event Type", "Recurring Type" };
+            string[] columns = { "Name", "Email", "Date", "Time", "Location", "Recipient", "Duration", "Event Type", "Recurring Type" };
 
             foreach (var column in columns)
             {
@@ -62,14 +62,14 @@ namespace TimeManagementReportingSystem
                     datePicker.Height = textBoxHeight;
                     entryPanel.Children.Add(datePicker);
                 }
-                else if (i == 6)
+                else if (i == 7)
                 {
                     ListBox listBox = new ListBox();
                     listBox.Items.Add(new string("Task"));
                     listBox.Items.Add(new string("Appointment"));
                     entryPanel.Children.Add(listBox);
                 }
-                else if (i == 7)
+                else if (i == 8)
                 {
                     CheckBox checkBox = new CheckBox();
                     checkBox.Width = textBoxWidth;
@@ -113,12 +113,17 @@ namespace TimeManagementReportingSystem
                     Trace.WriteLine(textBox.Text);
 
                     // if duration textbox
-                    if (i == 5)
+                    if (i == 6)
                     {
                         if (!IsDurationValid(textBox.Text))
                             return false;
                     }
                     // else other textboxes
+                    else if (i == 3)
+                    {
+                        if (!IsTimeValid(textBox.Text))
+                            return false;
+                    }
                     else
                     {
                         if (!IsTextBoxValid(textBox.Text))
@@ -143,6 +148,7 @@ namespace TimeManagementReportingSystem
             string name = "";
             string contact = "";
             string date = "";
+            string time = "";
             string location = "";
             string recipient = "";
             int timeUsage = 0;
@@ -168,14 +174,18 @@ namespace TimeManagementReportingSystem
                             break;
 
                         case 3:
-                            location = textBox.Text;
+                            time = textBox.Text;
                             break;
 
                         case 4:
-                            recipient = textBox.Text;
+                            location = textBox.Text;
                             break;
 
                         case 5:
+                            recipient = textBox.Text;
+                            break;
+
+                        case 6:
                             timeUsage = int.Parse(textBox.Text);
                             break;
                     }
@@ -214,12 +224,12 @@ namespace TimeManagementReportingSystem
 
             if (isAppointment)
             {
-                eventToAdd = new Appointment(name, contact, date, location, timeUsage, recipient);
+                eventToAdd = new Appointment(name, contact, date, time, location, timeUsage, recipient);
                 eventToAdd.EventType = eventType;
             }
             else
             {
-                eventToAdd = new Task(name, contact, date, location, timeUsage);
+                eventToAdd = new Task(name, contact, date, time, location, timeUsage);
                 eventToAdd.EventType = eventType;
             }
 
@@ -284,6 +294,18 @@ namespace TimeManagementReportingSystem
             else
             {
                 return true;
+            }
+        }
+
+        private bool IsTimeValid(string time)
+        {
+            if (time == "")
+            {
+                return false;
+            }
+            else
+            {
+                return TimeSpan.TryParse(time, out var output);
             }
         }
         private void CancelFormButton_Click(object sender, RoutedEventArgs e)

@@ -27,6 +27,7 @@ namespace TimeManagementReportingSystem
                     string contact = node.SelectSingleNode("Contact").InnerText;
                     string location = node.SelectSingleNode("Location").InnerText;
                     string date = node.SelectSingleNode("Date").InnerText;
+                    string time = node.SelectSingleNode("Time").InnerText;
                     int timeUsage = Convert.ToInt32(node.SelectSingleNode("Duration").InnerText);
                     EventType eventType = (EventType)Convert.ToInt32(node.SelectSingleNode("EventType").InnerText);
 
@@ -34,7 +35,7 @@ namespace TimeManagementReportingSystem
                     {
                         bool isComplete = Convert.ToBoolean(Convert.ToInt32(node.SelectSingleNode("IsComplete").InnerText));
 
-                        Task taskToAddFromFile = new Task(name, contact, date, location, timeUsage, isComplete);
+                        Task taskToAddFromFile = new Task(name, contact, date, time, location, timeUsage, isComplete);
 
                         taskToAddFromFile.EventType = eventType;
 
@@ -44,7 +45,7 @@ namespace TimeManagementReportingSystem
                     {
                         string recipient = node.SelectSingleNode("Recipient").InnerText;
 
-                        Appointment appointmentToAddFromFile = new Appointment(name, contact, date, location, timeUsage, recipient);
+                        Appointment appointmentToAddFromFile = new Appointment(name, contact, date, time, location, timeUsage, recipient);
 
                         appointmentToAddFromFile.EventType = eventType;
 
@@ -100,10 +101,15 @@ namespace TimeManagementReportingSystem
             contactNode.InnerText = eventToAdd.Name;
             subRootNote.AppendChild(contactNode);
 
-            // DateTime
-            XmlNode dateTimeNode = xmlDoc.CreateElement("Date");
-            dateTimeNode.InnerText = eventToAdd.Date;
-            subRootNote.AppendChild(dateTimeNode);
+            // Date
+            XmlNode dateNode = xmlDoc.CreateElement("Date");
+            dateNode.InnerText = eventToAdd.Date;
+            subRootNote.AppendChild(dateNode);
+
+            // Time
+            XmlNode TimeNode = xmlDoc.CreateElement("Time");
+            TimeNode.InnerText = eventToAdd.Time;
+            subRootNote.AppendChild(TimeNode);
 
             // Location
             XmlNode locationTimeNode = xmlDoc.CreateElement("Location");
@@ -186,19 +192,27 @@ namespace TimeManagementReportingSystem
             textWriter.WriteString(eventToAdd.Contact);
             textWriter.WriteEndElement();
 
-            // DateTime
+            // Date
+            textWriter.WriteStartElement("Time");
+            textWriter.WriteString(eventToAdd.Time);
+            textWriter.WriteEndElement();
+
+            // Time
             textWriter.WriteStartElement("Date");
             textWriter.WriteString(eventToAdd.Date);
             textWriter.WriteEndElement();
 
+            // Location
             textWriter.WriteStartElement("Location");
             textWriter.WriteString(eventToAdd.Location);
             textWriter.WriteEndElement();
 
+            // Duration
             textWriter.WriteStartElement("Duration");
             textWriter.WriteString(eventToAdd.TimeUsage.ToString());
             textWriter.WriteEndElement();
 
+            //Event type
             textWriter.WriteStartElement("EventType");
             textWriter.WriteString(Convert.ToInt32(eventToAdd.EventType).ToString());
             textWriter.WriteEndElement();
