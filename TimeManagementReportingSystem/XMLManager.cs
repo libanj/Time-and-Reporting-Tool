@@ -140,7 +140,11 @@ namespace TimeManagementReportingSystem
 
         private void SaveInitialData(Event eventToAdd)
         {
-            XmlTextWriter textWriter = null;
+            // Get current working directory
+            string currentDirectory = Directory.GetCurrentDirectory();
+
+            // Create a new file in the working directory
+            XmlTextWriter textWriter = new XmlTextWriter(currentDirectory + fileName, Encoding.UTF8);
 
             try
             {
@@ -158,12 +162,6 @@ namespace TimeManagementReportingSystem
 
         private void CreatXMLContent(Event eventToAdd, XmlTextWriter textWriter)
         {
-            // Get current working directory
-            string currentDirectory = Directory.GetCurrentDirectory();
-
-            // Create a new file in the working directory
-            textWriter = new XmlTextWriter(currentDirectory + fileName, Encoding.UTF8);
-
             // format the xml file
             textWriter.Formatting = Formatting.Indented;
 
