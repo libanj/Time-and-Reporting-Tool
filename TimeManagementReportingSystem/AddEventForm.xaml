@@ -5,24 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TimeManagementReportingSystem"
         mc:Ignorable="d"
-        Title="AddEventForm" Height="550" Width="550">
+        Title="AddEventForm" Height="364" Width="1003">
     <Grid Background="Aqua">
-        <Label Content="Name" HorizontalAlignment="Left" Margin="203,81,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="NameTextBox" HorizontalAlignment="Left" Margin="275,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Email" HorizontalAlignment="Left" Margin="206,141,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="ContactTextBox" HorizontalAlignment="Left" Margin="275,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Date and Time" HorizontalAlignment="Left" Margin="157,203,0,0" VerticalAlignment="Top"/>
-        <DatePicker Name="DateTimePicker" HorizontalAlignment="Left" Margin="275,203,0,0" VerticalAlignment="Top"/>
-        <Label Content="Location" HorizontalAlignment="Left" Margin="187,260,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.281,-0.756"/>
-        <TextBox Name="LocationTextBox" HorizontalAlignment="Left" Margin="275,268,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
-        <Button Name="SubmitFormButton" Content="Submit" HorizontalAlignment="Left" Margin="335,442,0,0" VerticalAlignment="Top" Height="41" Width="106" Click="SubmitFormButton_Click"/>
-        <RadioButton Name="AppointmentRadioButton" Content="Appointment" HorizontalAlignment="Left" Margin="288,50,0,0" VerticalAlignment="Top" Checked="AppointmentRadioButton_Checked"/>
-        <RadioButton Name="TaskRadioButton" Content="Task" HorizontalAlignment="Left" Margin="173,50,0,0" VerticalAlignment="Top" Checked="TaskRadioButton_Checked"/>
-        <Label Content="Recipient" HorizontalAlignment="Left" Margin="183,312,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="RecipientTextBox" HorizontalAlignment="Left" Margin="275,316,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="CancelFormButton" Content="Cancel" HorizontalAlignment="Left" Margin="141,442,0,0" VerticalAlignment="Top" Height="41" Width="106" Click="CancelFormButton_Click"/>
-        <Label Content="Duration (minutes)" HorizontalAlignment="Left" Margin="147,355,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="DurationTextBox" HorizontalAlignment="Left" Margin="275,359,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <CheckBox Name="EventTypeCheckBox" Content="one-off (check box to select recurring)" HorizontalAlignment="Left" Margin="166,407,0,0" VerticalAlignment="Top" Checked="EventTypeCheckBox_OnChanged" Unchecked="EventTypeCheckBox_OnChanged"/>
+        <Button Name="SubmitFormButton" Content="Submit" HorizontalAlignment="Left" Margin="635,266,0,0" VerticalAlignment="Top" Height="41" Width="106" Click="SubmitFormButton_Click" RenderTransformOrigin="0.543,-0.428"/>
+        <Button x:Name="CancelFormButton" Content="Cancel" HorizontalAlignment="Left" Margin="228,271,0,0" VerticalAlignment="Top" Height="40" Width="106" Click="CancelFormButton_Click"/>
+        <Label Content="Add Entries" HorizontalAlignment="Center" Margin="0,30,0,0" VerticalAlignment="Top" Height="46" Width="153" FontSize="25"/>
+        <StackPanel x:Name="MainPanel" Background="White" Margin="30,113,31,114" Orientation="Vertical">
+
+        </StackPanel>
     </Grid>
 </Window>
