@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -17,37 +16,40 @@ namespace TimeManagementReportingSystem
 
             string filepath = currentDirectory + fileName;
 
-            XmlDocument doc = new XmlDocument();
-            doc.Load(filepath);
-
-            foreach (XmlNode node in doc.SelectNodes("Events/Event"))
+            if (File.Exists(filepath))
             {
-                string name = node.SelectSingleNode("Name").InnerText;
-                string contact = node.SelectSingleNode("Contact").InnerText;
-                string location = node.SelectSingleNode("Location").InnerText;
-                string date = node.SelectSingleNode("Date").InnerText;
-                int timeUsage = Convert.ToInt32(node.SelectSingleNode("Duration").InnerText);
-                EventType eventType = (EventType)Convert.ToInt32(node.SelectSingleNode("EventType").InnerText);
+                XmlDocument doc = new XmlDocument();
+                doc.Load(filepath);
 
-                if (node.SelectSingleNode("IsComplete") != null)
+                foreach (XmlNode node in doc.SelectNodes("Events/Event"))
                 {
-                    bool isComplete = Convert.ToBoolean(Convert.ToInt32(node.SelectSingleNode("IsComplete").InnerText));
+                    string name = node.SelectSingleNode("Name").InnerText;
+                    string contact = node.SelectSingleNode("Contact").InnerText;
+                    string location = node.SelectSingleNode("Location").InnerText;
+                    string date = node.SelectSingleNode("Date").InnerText;
+                    int timeUsage = Convert.ToInt32(node.SelectSingleNode("Duration").InnerText);
+                    EventType eventType = (EventType)Convert.ToInt32(node.SelectSingleNode("EventType").InnerText);
 
-                    Task taskToAddFromFile = new Task(name, contact, date, location, timeUsage, isComplete);
+                    if (node.SelectSingleNode("IsComplete") != null)
+                    {
+                        bool isComplete = Convert.ToBoolean(Convert.ToInt32(node.SelectSingleNode("IsComplete").InnerText));
 
-                    taskToAddFromFile.EventType = eventType;
+                        Task taskToAddFromFile = new Task(name, contact, date, location, timeUsage, isComplete);
 
-                    EventsDataHandler.GetInstance().events.Add(taskToAddFromFile);
-                }
-                else if (node.SelectSingleNode("Recipient") != null)
-                {
-                    string recipient = node.SelectSingleNode("Recipient").InnerText;
+                        taskToAddFromFile.EventType = eventType;
 
-                    Appointment appointmentToAddFromFile = new Appointment(name, contact, date, location, timeUsage, recipient);
+                        EventsDataHandler.GetInstance().events.Add(taskToAddFromFile);
+                    }
+                    else if (node.SelectSingleNode("Recipient") != null)
+                    {
+                        string recipient = node.SelectSingleNode("Recipient").InnerText;
 
-                    appointmentToAddFromFile.EventType = eventType;
+                        Appointment appointmentToAddFromFile = new Appointment(name, contact, date, location, timeUsage, recipient);
 
-                    EventsDataHandler.GetInstance().events.Add(appointmentToAddFromFile);
+                        appointmentToAddFromFile.EventType = eventType;
+
+                        EventsDataHandler.GetInstance().events.Add(appointmentToAddFromFile);
+                    }
                 }
             }
 
