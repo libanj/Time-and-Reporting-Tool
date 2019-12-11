@@ -19,7 +19,5 @@ namespace TimeManagementReportingSystem
 
             return mainContent + $", Is Complete: {isComplete}.";
         }
-
-
     }
 }
