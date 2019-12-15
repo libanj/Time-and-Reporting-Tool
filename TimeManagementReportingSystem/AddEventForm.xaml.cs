@@ -129,14 +129,6 @@ namespace TimeManagementReportingSystem
                             return false;
                     }
                 }
-                else if (entryPanel.Children[i].GetType() == typeof(DatePicker))
-                {
-                    DatePicker datePicker = (DatePicker)entryPanel.Children[i];
-                    string date = datePicker.SelectedDate.Value.ToShortDateString();
-
-                    if (!IsDateValid(date))
-                        return false;
-                }
             }
 
             return true;
@@ -277,18 +269,6 @@ namespace TimeManagementReportingSystem
                 return true;
             else
                 return false;
-        }
-
-        private bool IsDateValid(string date)
-        {
-            if (date == "")
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
         }
 
         private bool IsTimeValid(string time) => validator.IsValid(time);
