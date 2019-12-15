@@ -30,7 +30,7 @@ namespace TimeManagementReportingSystem
 
         private void Add_Button_Click(object sender, RoutedEventArgs e)
         {
-            AddEventForm addevent = new AddEventForm();
+            AddEventForm addevent = new AddEventForm(new TimeStringValidator());
             addevent.ShowDialog();
             addevent.Focus();
         }

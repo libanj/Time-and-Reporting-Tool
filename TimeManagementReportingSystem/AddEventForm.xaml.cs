@@ -3,7 +3,6 @@ using System.Windows;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Controls;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace TimeManagementReportingSystem
@@ -13,16 +12,18 @@ namespace TimeManagementReportingSystem
     /// </summary>
     public partial class AddEventForm : Window
     {
+        private StackPanel entryPanel;
+        private IStringValidator validator;
+
         private int numberOfColumns = 9;
         private const int textBoxWidth = 100;
         private const int textBoxHeight = 40;
         private const int numberOfEntries = 1;
 
-        StackPanel entryPanel;
-
-        public AddEventForm()
+        public AddEventForm(IStringValidator validator)
         {
             InitializeComponent();
+            this.validator = validator;
             CreateColumns();
             CreateInitialEntries();
             ((DatePicker)entryPanel.Children[2]).SelectedDate = DateTime.Now;
@@ -100,8 +101,6 @@ namespace TimeManagementReportingSystem
                 MessageBox.Show("Invalid entry");
             }
         }
-
-
 
         private bool IsDataValid()
         {
@@ -273,18 +272,13 @@ namespace TimeManagementReportingSystem
             Regex regex = new Regex("^[0-9]+$");
 
             if (duration == "")
-            {
                 return false;
-            }
             else if (regex.IsMatch(duration))
-            {
                 return true;
-            }
             else
-            {
                 return false;
-            }
         }
+
         private bool IsDateValid(string date)
         {
             if (date == "")
@@ -297,17 +291,8 @@ namespace TimeManagementReportingSystem
             }
         }
 
-        private bool IsTimeValid(string time)
-        {
-            if (time == "")
-            {
-                return false;
-            }
-            else
-            {
-                return TimeSpan.TryParse(time, out var output);
-            }
-        }
+        private bool IsTimeValid(string time) => validator.IsValid(time);
+
         private void CancelFormButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
