@@ -28,7 +28,7 @@ namespace TimeManagementReportingSystem
 
         private bool IsHoursValid(int hours)
         {
-            if (hours > 0 && hours < 24)
+            if (hours >= 0 && hours < 24)
                 return true;
 
             return false;

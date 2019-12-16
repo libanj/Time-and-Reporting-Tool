@@ -20,6 +20,7 @@ namespace TestingProject
         [TestCase("01:60", false)]
         [TestCase("22:00", true)]
         [TestCase("24:00", false)]
+        [TestCase("00:10", true)]
         public void Test_That_Event_The_Time_Is_Valid(string time, bool expected)
         {
             Task task = new Task("Liban", "liban1808@gmail.com", "14/12/2019", time, "London", 100);
